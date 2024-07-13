@@ -1,21 +1,20 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.9;
 
-//import "hardhat/console.sol";
-
 contract Assessment {
     address payable public owner;
     uint256 public balance;
 
     event Deposit(uint256 amount);
     event Withdraw(uint256 amount);
+    event BalanceDoubled(uint256 newBalance);
 
     constructor(uint initBalance) payable {
         owner = payable(msg.sender);
         balance = initBalance;
     }
 
-    function getBalance() public view returns(uint256){
+    function getBalance() public view returns(uint256) {
         return balance;
     }
 
@@ -56,5 +55,13 @@ contract Assessment {
 
         // emit the event
         emit Withdraw(_withdrawAmount);
+    }
+
+    function doubleBalance() public {
+        require(msg.sender == owner, "You are not the owner of this account");
+        balance *= 2;
+
+        // emit the event
+        emit BalanceDoubled(balance);
     }
 }
