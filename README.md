@@ -294,6 +294,36 @@ const doubleBalance = async () => {
   }
 };
 ```
+3. ## Reset Balance
+
+   Function: resetBalance in Solidity
+   This function resets the current balance to zero.
+   It ensures that only the owner of the contract can call this function.
+   The function emits a BalanceReset event after successfully resetting the balance.
+
+   ```
+         function resetBalance() public {
+        require(msg.sender == owner, "You are not the owner of this account");
+        balance = 0;
+      
+        // emit the event
+        emit BalanceReset(balance);
+      }
+   ```
+Usage:
+   The resetBalance function in the frontend calls the resetBalance function of the smart contract.
+   It waits for the transaction to be confirmed and then updates the balance.
+
+   ```
+      const resetBalance = async () => {
+        if (atm) {
+          let tx = await atm.resetBalance();
+          await tx.wait();
+          getBalance();
+        }
+      };
+
+   ```
 ## Authors
 Vashti Leonie D. Bauson
 
