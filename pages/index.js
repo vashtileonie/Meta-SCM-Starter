@@ -106,6 +106,13 @@ export default function HomePage() {
       getBalance();
     }
   };
+  const resetBalance = async () => {
+    if (atm) {
+      let tx = await atm.resetBalance();
+      await tx.wait();
+      getBalance();
+    }
+  };
 
   const initUser = () => {
     // Check to see if user has Metamask
@@ -129,6 +136,7 @@ export default function HomePage() {
         <button onClick={deposit}>Deposit 1 ETH</button>
         <button onClick={withdraw}>Withdraw 1 ETH</button>
         <button onClick={doubleBalance}>Double Balance</button>
+        <button onClick={resetBalance}>Reset Balance</button>
       </div>
     );
   };

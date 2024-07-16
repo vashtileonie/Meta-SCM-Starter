@@ -8,6 +8,7 @@ contract Assessment {
     event Deposit(uint256 amount);
     event Withdraw(uint256 amount);
     event BalanceDoubled(uint256 newBalance);
+    event BalanceReset(uint256 newBalance);
 
     constructor(uint initBalance) payable {
         owner = payable(msg.sender);
@@ -63,5 +64,12 @@ contract Assessment {
 
         // emit the event
         emit BalanceDoubled(balance);
+    }
+    function resetBalance() public {
+        require(msg.sender == owner, "You are not the owner of this account");
+        balance = 0;
+
+        // emit the event
+        emit BalanceReset(balance);
     }
 }
